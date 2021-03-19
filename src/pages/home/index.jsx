@@ -1,51 +1,48 @@
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
-import { regionThunk } from "../../store/models/region/thunk";
-import { pokeListPageThunk } from "../../store/models/pokeListPage/thunk";
+import { pokeListFullThunk } from "../../store/models/pokeListFull/thunk";
 
-import { Link } from "react-router-dom";
+import PokeList from "../../components/pokeList";
+
+import "./style.css";
 
 const Home = () => {
 	const dispatch = useDispatch();
 
-	return (
-		<>
-			<h1>Selecione sua região!</h1>
+	const [start, setStart] = useState(false);
 
-			<Link to="/main">
-				<button
-					onClick={() => {
-						dispatch(regionThunk("Kanto"));
-						dispatch(pokeListPageThunk(0, 150));
-					}}
-				>
-					Kanto
-				</button>
-			</Link>
+	const handleClick = () => {
+		setStart(true);
+		dispatch(pokeListFullThunk());
+	};
 
-			<Link to="/main">
-				<button
-					onClick={() => {
-						dispatch(regionThunk("Jhoto"));
-						dispatch(pokeListPageThunk(151, 100));
-					}}
-				>
-					Jhoto
-				</button>
-			</Link>
-
-			<Link to="/main">
-				<button
-					onClick={() => {
-						dispatch(regionThunk("Hoen"));
-						dispatch(pokeListPageThunk(251, 135));
-					}}
-				>
-					Hoen
-				</button>
-			</Link>
-		</>
-	);
+	if (start) {
+		return (
+			<div className="landing">
+				<h1>Pokedéx Nacional</h1>
+				<PokeList />
+			</div>
+		);
+	} else {
+		return (
+			<div className="landing">
+				<div className="logo">
+					<img
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png"
+						alt=""
+					/>
+				</div>
+				<div className="pokeball">
+					<img
+						src="https://pngimg.com/uploads/pokeball/pokeball_PNG21.png"
+						alt=""
+						onClick={handleClick}
+					/>
+				</div>
+			</div>
+		);
+	}
 };
 
 export default Home;

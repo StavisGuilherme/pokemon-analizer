@@ -1,12 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import RegionReducer from "./models/region/reducer";
-import pokeListPageReducer from "./models/pokeListPage/reducer";
+import pokeListFullReducer from "./models/pokeListFull/reducer";
 
 const reducers = combineReducers({
-	region: RegionReducer,
-	pokeListPage: pokeListPageReducer,
+	pokeListFull: pokeListFullReducer,
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

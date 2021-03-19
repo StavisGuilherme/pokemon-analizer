@@ -1,4 +1,13 @@
 .pokemon {
 	width: 10vw;
-	background-color: #fff;
+	box-sizing: border-box;
+	color: #ffcb05;
+}
+
+.pokemon img {
+	width: 8vw;
+}
+
+.pokemon p {
+	margin-top: 0;
 }
