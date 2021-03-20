@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { specificPokemonThunk } from "../../store/models/specificPokemon/thunk";
 
-import "./style.css";
+import styled from "styled-components";
 
 const Pokemon = ({ name, image }) => {
 	const pokeListFull = useSelector((state) => state.pokeListFull);
@@ -18,7 +18,7 @@ const Pokemon = ({ name, image }) => {
 	};
 
 	return (
-		<div className="pokemon">
+		<PokemonContainer>
 			<img src={image} alt="pokemon avatar" />
 			<Link to="/pokemon">
 				<p
@@ -33,8 +33,33 @@ const Pokemon = ({ name, image }) => {
 					{name.charAt(0).toUpperCase() + name.slice(1)}
 				</p>
 			</Link>
-		</div>
+		</PokemonContainer>
 	);
 };
 
 export default Pokemon;
+
+const PokemonContainer = styled.div`
+	width: 10vw;
+	box-sizing: border-box;
+	color: #ffcb05;
+
+	img {
+		width: 8vw;
+	}
+
+	a {
+		text-decoration: none;
+		color: #ffcb05;
+		text-shadow: 1px 1px #2b72b9;
+	}
+
+	a:hover {
+		color: #2b72b9;
+		text-shadow: 1px 1px #ffcb05;
+	}
+
+	p {
+		margin-top: 0;
+	}
+`;
