@@ -4,6 +4,7 @@
 	width: 35vw;
 	justify-content: space-around;
 	margin-bottom: 3vh;
+	margin-top: 5vh;
 }
 
 .search input {
@@ -40,6 +41,7 @@
 	font-weight: bold;
 	outline: none;
 	cursor: pointer;
+	padding: 1vh;
 }
 
 .search button:active {
@@ -85,6 +87,7 @@
 	font-weight: bold;
 	outline: none;
 	cursor: pointer;
+	padding: 1vh;
 }
 
 .navButtons button:active {

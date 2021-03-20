@@ -11,6 +11,9 @@ import "./style.css";
 
 const PokeList = () => {
 	const pokeListFull = useSelector((state) => state.pokeListFull);
+	const storagePokeList = JSON.parse(
+		window.localStorage.getItem("pokeListFull")
+	);
 
 	const [currentOffset, setCurrentOffset] = useState(0);
 	const [search, setSearch] = useState("");
@@ -48,36 +51,69 @@ const PokeList = () => {
 				</button>
 			</div>
 			<div className="pokeList">
-				{pokeListFull
-					.filter((pokemon) => {
-						if (search.length) {
-							return pokemon.pokemon_species.name
-								.toLowerCase()
-								.includes(search.toLowerCase());
-						} else {
-							return pokeListFull;
-						}
-					})
-					.map((pokemon, index) => {
-						const init = currentOffset;
-						const final = currentOffset + 19;
+				{pokeListFull.length !== 0
+					? pokeListFull
+							.filter((pokemon) => {
+								if (search.length) {
+									return pokemon.pokemon_species.name
+										.toLowerCase()
+										.includes(search.toLowerCase());
+								} else {
+									return pokeListFull;
+								}
+							})
+							.map((pokemon, index) => {
+								const init = currentOffset;
+								const final = currentOffset + 19;
 
-						const getImgUrl = (url) => {
-							const brokenUrl = url.split("/");
-							const id = brokenUrl[brokenUrl.length - 2];
+								const getImgUrl = (url) => {
+									const brokenUrl = url.split("/");
+									const id = brokenUrl[brokenUrl.length - 2];
 
-							return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-						};
-						if (index >= init && index <= final) {
-							return (
-								<Pokemon
-									key={index}
-									name={pokemon.pokemon_species.name}
-									image={getImgUrl(pokemon.pokemon_species.url)}
-								/>
-							);
-						}
-					})}
+									return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+								};
+								if (index >= init && index <= final) {
+									return (
+										<div className="pokemon" key={index}>
+											<Pokemon
+												name={pokemon.pokemon_species.name}
+												image={getImgUrl(pokemon.pokemon_species.url)}
+											/>
+										</div>
+									);
+								}
+							})
+					: storagePokeList
+							.filter((pokemon) => {
+								if (search.length) {
+									return pokemon.pokemon_species.name
+										.toLowerCase()
+										.includes(search.toLowerCase());
+								} else {
+									return pokeListFull;
+								}
+							})
+							.map((pokemon, index) => {
+								const init = currentOffset;
+								const final = currentOffset + 19;
+
+								const getImgUrl = (url) => {
+									const brokenUrl = url.split("/");
+									const id = brokenUrl[brokenUrl.length - 2];
+
+									return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+								};
+								if (index >= init && index <= final) {
+									return (
+										<div className="pokemon" key={index}>
+											<Pokemon
+												name={pokemon.pokemon_species.name}
+												image={getImgUrl(pokemon.pokemon_species.url)}
+											/>
+										</div>
+									);
+								}
+							})}
 			</div>
 			<div className="navButtons">
 				<button onClick={handleClickPrevious} disabled={search}>
