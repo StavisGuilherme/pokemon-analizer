@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { specificPokemonThunk } from "../../store/models/specificPokemon/thunk";
-import { specificSpeciesThunk } from "../../store/models/specificSpecies/thunk";
 
 import "./style.css";
 
@@ -12,20 +11,10 @@ const Pokemon = ({ name, image }) => {
 
 	const getSpecificPokemon = (pokeList, name) => {
 		const pokeClicked = pokeList.filter(
-			(pokemon) => pokemon.pokemon_species.name === name
+			(pokemon) => pokemon.pokemon_species.name === name.toLowerCase()
 		);
 
-		console.log(pokeClicked[0].pokemon_species.name);
 		return `https://pokeapi.co/api/v2/pokemon/${pokeClicked[0].pokemon_species.name}`;
-	};
-
-	const getSpecificSpecies = (pokeList, name) => {
-		const pokeClicked = pokeList.filter(
-			(pokemon) => pokemon.pokemon_species.name === name
-		);
-
-		console.log(pokeClicked[0].pokemon_species.url);
-		return pokeClicked[0].pokemon_species.url;
 	};
 
 	return (
@@ -39,14 +28,9 @@ const Pokemon = ({ name, image }) => {
 								getSpecificPokemon(pokeListFull, evt.target.textContent)
 							)
 						);
-						dispatch(
-							specificSpeciesThunk(
-								getSpecificSpecies(pokeListFull, evt.target.textContent)
-							)
-						);
 					}}
 				>
-					{name}
+					{name.charAt(0).toUpperCase() + name.slice(1)}
 				</p>
 			</Link>
 		</div>

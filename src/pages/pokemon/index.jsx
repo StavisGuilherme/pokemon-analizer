@@ -8,15 +8,17 @@ const Pokemon = () => {
 	const storage = JSON.parse(window.localStorage.getItem("specificPokemon"));
 	const history = useHistory();
 
-	// console.log(specificPokemon);
-	// console.log(storage);
-
-	// console.log(specificSpecies.evolution_chain);
-	// console.log(speciesStorage);
+	const captalize = (word) => {
+		return word.charAt(0).toUpperCase() + word.slice(1);
+	};
 
 	return (
 		<div className="pokeDetails">
-			<h1>{specificPokemon.name ? specificPokemon.name : storage.name}</h1>
+			<h1>
+				{specificPokemon.name
+					? captalize(specificPokemon.name)
+					: captalize(storage.name)}
+			</h1>
 
 			<img
 				src={
